@@ -64,10 +64,10 @@ export default function CourseDetailPage() {
       field_course_price: course.field_course_price || "Free",
       field_brands_name: course.field_brands_name || "Unknown Brand",
       field_brand_logo: course.field_brand_logo
-        ? `http://fiveheart.ddev.site${course.field_brand_logo}`
+        ? `http://dev-fiveheart.pantheonsite.io${course.field_brand_logo}`
         : undefined,
       field_course_image_url: course.field_course_image_url
-        ? `http://fiveheart.ddev.site${course.field_course_image_url}`
+        ? `http://dev-fiveheart.pantheonsite.io${course.field_course_image_url}`
         : undefined,
     };
 
@@ -97,7 +97,7 @@ export default function CourseDetailPage() {
         {/* ✅ Course Image */}
         {course.field_course_image_url && (
           <Image
-            src={`http://fiveheart.ddev.site${course.field_course_image_url}`}
+            src={`http://dev-fiveheart.pantheonsite.io${course.field_course_image_url}`}
             alt={course.title}
             width={600}
             height={350}
@@ -109,7 +109,7 @@ export default function CourseDetailPage() {
         {course.field_brand_logo && (
           <div className="flex items-center mb-4">
             <Image
-              src={`http://fiveheart.ddev.site${course.field_brand_logo}`}
+              src={`http://dev-fiveheart.pantheonsite.io${course.field_brand_logo}`}
               alt={course.field_brands_name || "Unknown Brand"}
               width={50}
               height={50}

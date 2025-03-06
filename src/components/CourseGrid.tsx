@@ -67,7 +67,7 @@ export default function CourseGrid() {
               console.log("Course NID:", courseId);
 
               const courseImage = course.field_course_image_url
-                ? `http://fiveheart.ddev.site${course.field_course_image_url}`
+                ? `http://dev-fiveheart.pantheonsite.io${course.field_course_image_url}`
                 : null;
 
               const rating = course.field_course_rating || "4.5";
@@ -91,7 +91,7 @@ export default function CourseGrid() {
                   {course.field_brand_logo && course.field_brands_name && (
                     <div className="flex items-center mb-2">
                       <Image
-                        src={`http://fiveheart.ddev.site${course.field_brand_logo}`}
+                        src={`http://dev-fiveheart.pantheonsite.io${course.field_brand_logo}`}
                         alt={course.field_brands_name}
                         width={40}
                         height={40}
