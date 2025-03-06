@@ -29,13 +29,8 @@ export default function Footer() {
         const responses = await Promise.all(menuEndpoints.map((menu) => fetch(menu.url)));
 
         const data = await Promise.all(
-          responses.map(async (res, index) => {
+          responses.map(async (res) => {
             if (!res.ok) throw new Error(`❌ Failed to fetch ${res.url}: ${res.status}`);
-
-            // Clone response before reading the body
-            const resClone = res.clone();
-            const text = await resClone.text();
-            //console.log(`📢 API Response (${menuEndpoints[index].title}):`, text);
 
             if (!res.headers.get("content-type")?.includes("application/json")) {
               throw new Error(`❌ Invalid JSON response from ${res.url}`);

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import TextWithImage from "@/components/ui/TextWithImage";
-import PartnerSlider from "@/components/ui/PartnerSlider";
+// import PartnerSlider from "@/components/ui/PartnerSlider";
 import { News } from "fiveheart-shared-library"; // ✅ Import the News component
 
 interface ParagraphContent {
