@@ -53,7 +53,7 @@ export default function Header() {
     <header className="bg-blue-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Image 
-          src="http://dev-fiveheart.pantheonsite.io/sites/default/files/Logo-Animatie.gif" 
+          src="https://dev-fiveheart.pantheonsite.io/sites/default/files/Logo-Animatie.gif" 
           alt="Vijfhart Logo Animation" 
           width={250} 
           height={100} 
