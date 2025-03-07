@@ -28,7 +28,7 @@ export default function Home() {
     const fetchFeatureContent = async () => {
       try {
         console.log("🔄 Fetching Home Page API...");
-        const homeRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/node/134?_format=json`);
+        const homeRes = await fetch("/api/drupal/node/134");
         if (!homeRes.ok) throw new Error("Failed to fetch home page content");
 
         const homeData = await homeRes.json();

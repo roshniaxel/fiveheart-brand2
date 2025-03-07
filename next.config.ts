@@ -44,6 +44,10 @@ const nextConfig = {
           source: "/api/partners",
           destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/partners?_format=json`,
         },
+        {
+          source: "/api/drupal/:path*",
+          destination: `${process.env.NEXT_PUBLIC_API_BASE_URL}/:path*?_format=json`,
+        },
       ],
     };
   },
