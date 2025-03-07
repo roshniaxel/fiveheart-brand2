@@ -7,7 +7,9 @@ export async function POST(req: NextRequest) {
 
     console.log("🔄 Logging purchase in Drupal:", orderData);
 
-    const drupalResponse = await fetch("https://dev-fiveheart.pantheonsite.io/api/log-purchase?_format=json", {
+    const drupalResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/log-purchase?_format=json`,
+      {      
       method: "POST",
       headers: {
         "Content-Type": "application/json",

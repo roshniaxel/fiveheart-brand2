@@ -7,6 +7,8 @@ import TextWithImage from "@/components/ui/TextWithImage";
 // import PartnerSlider from "@/components/ui/PartnerSlider";
 import { News } from "fiveheart-shared-library"; // ✅ Import the News component
 
+
+
 interface ParagraphContent {
   field_heading?: { value: string }[];
   field_description?: { value: string }[];
@@ -26,7 +28,7 @@ export default function Home() {
     const fetchFeatureContent = async () => {
       try {
         console.log("🔄 Fetching Home Page API...");
-        const homeRes = await fetch("https://dev-fiveheart.pantheonsite.io/node/134?_format=json");
+        const homeRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/node/134?_format=json`);
         if (!homeRes.ok) throw new Error("Failed to fetch home page content");
 
         const homeData = await homeRes.json();
@@ -41,7 +43,7 @@ export default function Home() {
         );
 
         const paragraphPromises = paragraphUuids.map(async (uuid: string) => {
-          const res = await fetch(`https://dev-fiveheart.pantheonsite.io/paragraph-api/${uuid}`);
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/paragraph-api/${uuid}`);
           if (!res.ok) throw new Error(`Failed to fetch paragraph ${uuid}`);
           return res.json();
         });
@@ -72,8 +74,12 @@ export default function Home() {
 
   // ✅ Fetch News Articles
   useEffect(() => {
-    fetch("/api/news")
-      .then((res) => res.json())
+    const siteUrl = window.location.host;
+    fetch(`/api/news/${siteUrl}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
         console.log("Fetched Articles:", data);
         setArticles(data);

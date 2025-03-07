@@ -10,6 +10,7 @@ interface MenuItem {
   relative?: string;
   absolute?: string;
 }
+const siteUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export default function Header() {
   const [menuItems, setMenuItems] = useState<{ title: string; url: string }[]>([]);
@@ -52,13 +53,14 @@ export default function Header() {
   return (
     <header className="bg-blue-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Image 
-          src="https://dev-fiveheart.pantheonsite.io/sites/default/files/Logo-Animatie.gif" 
-          alt="Vijfhart Logo Animation" 
-          width={250} 
-          height={100} 
-          className="mt-4"
-        />
+      <Image 
+        src={`${siteUrl}/sites/default/files/Logo-Animatie.gif`} 
+        alt="Vijfhart Logo Animation" 
+        width={250} 
+        height={100} 
+        className="mt-4"
+      />
+
 
         <nav>
           {error ? (
