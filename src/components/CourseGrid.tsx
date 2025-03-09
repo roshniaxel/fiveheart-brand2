@@ -20,15 +20,18 @@ interface Course {
 
 export default function CourseGrid() {
   const [selectedFilters, setSelectedFilters] = useState<string>("");
-
-  if (typeof window !== "undefined") {
-    setSelectedFilters(`/api/course-search/${window.location.host}`);
-  }
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
- // const [selectedFilters, setSelectedFilters] = useState<string>(`/api/course-search/${siteUrl}`);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSelectedFilters(`/api/course-search/${window.location.host}`);
+    }
+  }, []); // Runs only on component mount
+
+  useEffect(() => {
+    if (!selectedFilters) return; // Prevent fetch if selectedFilters is empty
+
     const fetchCourses = async () => {
       setLoading(true);
       try {
@@ -52,7 +55,7 @@ export default function CourseGrid() {
     };
 
     fetchCourses();
-  }, [selectedFilters]);
+  }, [selectedFilters]); // Fetch whenever `selectedFilters` changes
 
   if (loading) return <div className="text-center">Loading courses...</div>;
 
@@ -80,7 +83,6 @@ export default function CourseGrid() {
 
               return (
                 <div key={courseId} className="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                  
                   {/* Course Image */}
                   {courseImage && (
                     <Image
@@ -95,7 +97,7 @@ export default function CourseGrid() {
                   {/* Brand Logo & Brand Name */}
                   {course.field_brand_logo && course.field_brands_name && (
                     <div className="flex items-center mb-2">
-                     <Image
+                      <Image
                         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${course.field_brand_logo}`}
                         alt={course.field_brands_name}
                         width={40}
@@ -139,7 +141,6 @@ export default function CourseGrid() {
                   >
                     View Course
                   </Link>
-
                 </div>
               );
             })
