@@ -19,9 +19,10 @@ interface Course {
 }
 
 export default function CourseGrid() {
+  const siteUrl = window.location.host;
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFilters, setSelectedFilters] = useState<string>("/api/course-search/AWS");
+  const [selectedFilters, setSelectedFilters] = useState<string>(`/api/course-search/${siteUrl}`);
 
   useEffect(() => {
     const fetchCourses = async () => {
