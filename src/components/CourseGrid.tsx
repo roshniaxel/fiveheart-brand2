@@ -19,10 +19,14 @@ interface Course {
 }
 
 export default function CourseGrid() {
-  const siteUrl = window.location.host;
+  const [selectedFilters, setSelectedFilters] = useState<string>("");
+
+  if (typeof window !== "undefined") {
+    setSelectedFilters(`/api/course-search/${window.location.host}`);
+  }
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFilters, setSelectedFilters] = useState<string>(`/api/course-search/${siteUrl}`);
+ // const [selectedFilters, setSelectedFilters] = useState<string>(`/api/course-search/${siteUrl}`);
 
   useEffect(() => {
     const fetchCourses = async () => {
