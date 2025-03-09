@@ -14,6 +14,7 @@ interface FilterGroup {
 }
 
 export default function CourseFilters({
+  selectedFilters,
   setSelectedFilters,
 }: {
   selectedFilters: string;
@@ -44,9 +45,8 @@ export default function CourseFilters({
   );
 
   useEffect(() => {
-    const siteUrl = window.location.host;
-    fetchFilters(`/api/news/${siteUrl}`);
-  }, [fetchFilters]);
+    fetchFilters(selectedFilters);
+  }, [fetchFilters, selectedFilters]);
 
   // Handle filter selection
   const handleFilterChange = (filterUrl: string) => {
@@ -60,7 +60,7 @@ export default function CourseFilters({
     const newApiUrl =
       updatedFilters.length > 0
         ? updatedFilters.join("&")
-        : `/api/news/${siteUrl}`;
+        : `/api/course-search/${siteUrl}`;
 
     console.log("🔄 Applying filters:", newApiUrl);
     fetchFilters(newApiUrl);
@@ -70,7 +70,7 @@ export default function CourseFilters({
   const clearFilters = () => {
     setSelected([]);
     const siteUrl = window.location.host;
-    fetchFilters(`/api/news/${siteUrl}`); // Reset to default
+    fetchFilters(`/api/course-search/${siteUrl}`); // Reset to default
   };
 
   if (error) return <div className="text-red-500">Error loading filters: {error}</div>;
