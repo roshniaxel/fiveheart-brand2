@@ -14,7 +14,6 @@ interface FilterGroup {
 }
 
 export default function CourseFilters({
-  selectedFilters,
   setSelectedFilters,
 }: {
   selectedFilters: string;
@@ -45,8 +44,9 @@ export default function CourseFilters({
   );
 
   useEffect(() => {
-    fetchFilters(selectedFilters);
-  }, [fetchFilters, selectedFilters]);
+    const siteUrl = window.location.host;
+    fetchFilters(`/api/news/${siteUrl}`);
+  }, [fetchFilters]);
 
   // Handle filter selection
   const handleFilterChange = (filterUrl: string) => {
@@ -56,10 +56,11 @@ export default function CourseFilters({
 
     setSelected(updatedFilters);
 
+    const siteUrl = window.location.host;
     const newApiUrl =
       updatedFilters.length > 0
         ? updatedFilters.join("&")
-        : "/api/course-search/AWS";
+        : `/api/news/${siteUrl}`;
 
     console.log("🔄 Applying filters:", newApiUrl);
     fetchFilters(newApiUrl);
@@ -68,7 +69,8 @@ export default function CourseFilters({
   // Clear all selected filters
   const clearFilters = () => {
     setSelected([]);
-    fetchFilters("/api/course-search/AWS"); // Reset to default
+    const siteUrl = window.location.host;
+    fetchFilters(`/api/news/${siteUrl}`); // Reset to default
   };
 
   if (error) return <div className="text-red-500">Error loading filters: {error}</div>;
