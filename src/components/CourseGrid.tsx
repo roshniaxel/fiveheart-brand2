@@ -27,10 +27,10 @@ export default function CourseGrid() {
     if (typeof window !== "undefined") {
       setSelectedFilters(`/api/course-search/${window.location.host}`);
     }
-  }, []); // Runs only on component mount
+  }, []);
 
   useEffect(() => {
-    if (!selectedFilters) return; // Prevent fetch if selectedFilters is empty
+    if (!selectedFilters) return;
 
     const fetchCourses = async () => {
       setLoading(true);
@@ -38,7 +38,6 @@ export default function CourseGrid() {
         console.log("🔄 Fetching courses from:", selectedFilters);
         const res = await fetch(selectedFilters);
         const data = await res.json();
-        console.log("✅ Filtered Courses Response:", data);
 
         if (data?.search_results && Array.isArray(data.search_results)) {
           setCourses(data.search_results);
@@ -55,25 +54,23 @@ export default function CourseGrid() {
     };
 
     fetchCourses();
-  }, [selectedFilters]); // Fetch whenever `selectedFilters` changes
+  }, [selectedFilters]);
 
-  if (loading) return <div className="text-center">Loading courses...</div>;
+  if (loading) return <div className="text-center text-lg font-semibold text-gray-600">Loading courses...</div>;
 
   return (
-    <div className="container mx-auto p-6 flex">
+    <div className="container mx-auto p-8 flex gap-6">
       {/* Sidebar Filters */}
       <CourseFilters selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
 
       {/* Courses Grid */}
-      <div className="w-3/4 p-6">
-        <h1 className="text-3xl font-bold mb-6 text-center">Explore Our Courses</h1>
+      <div className="w-3/4 p-6 bg-white shadow-md rounded-lg">
+        <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Explore Our Courses</h1>
 
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
           {courses.length > 0 ? (
             courses.map((course) => {
               const courseId = course.nid;
-              console.log("Course NID:", courseId);
-
               const courseImage = course.field_course_image_url
                 ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${course.field_course_image_url}`
                 : null;
@@ -82,7 +79,7 @@ export default function CourseGrid() {
               const reviews = course.field_course_reviews || "888";
 
               return (
-                <div key={courseId} className="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <div key={courseId} className="bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition duration-300 border border-gray-200">
                   {/* Course Image */}
                   {courseImage && (
                     <Image
@@ -90,7 +87,7 @@ export default function CourseGrid() {
                       alt={course.title || "Course Image"}
                       width={400}
                       height={250}
-                      className="w-full h-40 object-cover rounded-md mb-4"
+                      className="w-full h-48 object-cover rounded-md mb-4"
                     />
                   )}
 
@@ -102,15 +99,14 @@ export default function CourseGrid() {
                         alt={course.field_brands_name}
                         width={40}
                         height={40}
-                        className="w-10 h-10 rounded-full mr-2"
+                        className="w-10 h-10 rounded-full mr-2 border border-gray-300"
                       />
-
-                      <span className="text-sm font-semibold">{course.field_brands_name}</span>
+                      <span className="text-sm font-semibold text-gray-700">{course.field_brands_name}</span>
                     </div>
                   )}
 
                   {/* Course Title */}
-                  <h2 className="text-xl font-semibold mb-2">
+                  <h2 className="text-lg font-semibold mb-2 text-gray-900">
                     <Link href={`/courses/${courseId}`} className="hover:text-blue-600 transition-colors duration-200">
                       {course.title || "Untitled Course"}
                     </Link>
@@ -119,7 +115,7 @@ export default function CourseGrid() {
                   {/* Expertise (Category) */}
                   {course.field_course_category && (
                     <p className="text-sm text-gray-600">
-                      <strong>Expertise:</strong> {course.field_course_category}
+                      <strong>Category:</strong> {course.field_course_category}
                     </p>
                   )}
 
@@ -137,7 +133,7 @@ export default function CourseGrid() {
                   {/* View Course Button */}
                   <Link
                     href={`/courses/${courseId}`}
-                    className="inline-block px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition mt-3"
+                    className="inline-block px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300 mt-4 shadow-md"
                   >
                     View Course
                   </Link>
@@ -145,7 +141,7 @@ export default function CourseGrid() {
               );
             })
           ) : (
-            <p className="text-gray-600 text-center col-span-3">No courses found. Try changing the filters.</p>
+            <p className="text-gray-600 text-center col-span-3">No courses found. Try adjusting your filters.</p>
           )}
         </div>
       </div>
