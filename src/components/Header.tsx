@@ -76,7 +76,7 @@ export default function Header() {
                   <li key={index}>
                     <Link
                       href={item.url}
-                      className="relative hover:text-blue-300 transition duration-300 after:block after:content-[''] after:h-[2px] after:w-0 after:bg-blue-300 after:transition-all after:duration-300 hover:after:w-full"
+                      className="relative hover:text-white-300 transition duration-300 after:block after:content-[''] after:h-[2px] after:w-0 after:bg-blue-300 after:transition-all after:duration-300 hover:after:w-full"
                     >
                       {item.title}
                     </Link>

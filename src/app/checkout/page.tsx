@@ -60,6 +60,7 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     const orderData = {
+      site_url: window.location.origin,
       title: `Order by ${form.name}`,
       user_email: form.email,
       payment_method: form.paymentMethod,
