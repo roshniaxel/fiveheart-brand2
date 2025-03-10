@@ -76,13 +76,13 @@ export default function CourseFilters({
   if (error) return <div className="text-red-500">Error loading filters: {error}</div>;
 
   return (
-    <aside className="w-1/4 p-4 bg-gray-100 rounded-md">
+    <aside className="p-6 bg-gray-700 rounded-md">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
       {/* Clear Filters Button */}
       <button
         onClick={clearFilters}
-        className="mb-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+        className="mt-4 w-full px-4 py-2 bg-gray-900 hover:bg-gray-900 rounded-md transition"
       >
         Clear Filters
       </button>
@@ -112,7 +112,7 @@ export default function CourseFilters({
                           onChange={() => handleFilterChange(option.url)}
                           className="cursor-pointer"
                         />
-                        <span className="text-blue-600 hover:underline">
+                        <span className="text-white-300 text-sm">
                           {option.raw_value} ({option.values?.count || 0})
                         </span>
                       </label>
@@ -123,7 +123,7 @@ export default function CourseFilters({
           );
         })
       ) : (
-        <p className="text-gray-600">No filters available.</p>
+        <p className="text-gray-700">No filters available.</p>
       )}
     </aside>
   );
