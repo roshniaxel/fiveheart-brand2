@@ -60,7 +60,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-blue-800 text-white py-8">
+    <footer className="bg-white-800 text-black py-8">
       <div className="container mx-auto px-6">
         {/* Grid Layout for Menus */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">

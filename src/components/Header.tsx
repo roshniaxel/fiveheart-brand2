@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Define the type for a menu item
 interface MenuItem {
   title: string;
   relative?: string;
   absolute?: string;
 }
-const siteUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+
+const siteUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function Header() {
   const [menuItems, setMenuItems] = useState<{ title: string; url: string }[]>([]);
@@ -26,8 +26,8 @@ export default function Header() {
         });
 
         const text = await res.text();
+        const data: MenuItem[] = JSON.parse(text);
 
-        const data: MenuItem[] = JSON.parse(text); // Ensure TypeScript recognizes the structure
         if (!Array.isArray(data)) throw new Error("Invalid API response");
 
         setMenuItems(
@@ -51,32 +51,39 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-blue-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-      <Image 
-        src={`${siteUrl}/sites/default/files/Logo-Animatie.gif`} 
-        alt="Vijfhart Logo Animation" 
-        width={250} 
-        height={100} 
-        className="mt-4"
-      />
+    <header className="bg-gradient-to-r from-white-900 to-white-700 text-white shadow-md py-4">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        
+        {/* Logo */}
+        <Link href="/">
+          <Image
+            src={`${siteUrl}/sites/default/files/CoachResult-logo.svg`} 
+            alt="CoachResult Logo"
+            width={200}
+            height={60}
+            className="cursor-pointer"
+          />
+        </Link>
 
-
+        {/* Navigation */}
         <nav>
           {error ? (
             <p className="text-red-500">Error loading menu</p>
           ) : (
-            <ul className="flex space-x-4">
+            <ul className="flex space-x-6 text-lg font-medium">
               {menuItems.length > 0 ? (
                 menuItems.map((item, index) => (
                   <li key={index}>
-                    <Link href={item.url} className="hover:underline">
+                    <Link
+                      href={item.url}
+                      className="relative hover:text-blue-300 transition duration-300 after:block after:content-[''] after:h-[2px] after:w-0 after:bg-blue-300 after:transition-all after:duration-300 hover:after:w-full"
+                    >
                       {item.title}
                     </Link>
                   </li>
                 ))
               ) : (
-                <li>Loading menu...</li>
+                <li className="text-gray-300">Loading menu...</li>
               )}
             </ul>
           )}
