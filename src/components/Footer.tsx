@@ -71,7 +71,7 @@ export default function Footer() {
                 {menu.items.length > 0 ? (
                   menu.items.map((item, idx) => (
                     <li key={idx} className="mb-1">
-                      <Link href={item.url} className="text-gray-300 hover:text-white transition">
+                      <Link href={item.url} className="text-black-300 hover:text-gray transition">
                         {item.title}
                       </Link>
                     </li>

@@ -51,13 +51,13 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-white-900 to-white-700 text-white shadow-md py-4">
+    <header className="bg-gradient-to-r from-red-900 to-red-700 text-white shadow-md py-4">
       <div className="container mx-auto flex justify-between items-center px-6">
         
         {/* Logo */}
         <Link href="/">
           <Image
-            src={`${siteUrl}/sites/default/files/CoachResult-logo.svg`} 
+            src={`${siteUrl}/sites/default/files/Logo-Animatie.gif`}
             alt="CoachResult Logo"
             width={200}
             height={60}
