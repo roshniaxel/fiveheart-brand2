@@ -17,6 +17,14 @@ interface ParagraphContent {
   field_variation?: { value: string }[];
 }
 
+interface Article {
+  title: string;
+  description: string;
+  field_news_image?: string; // ✅ Added field_news_image
+  image?: string; // ✅ Ensure image exists in the final object
+  link: string;
+}
+
 export default function Home() {
   const [featureContent, setFeatureContent] = useState<ParagraphContent[]>([]);
   const [articles, setArticles] = useState([]); // ✅ State for News Articles
@@ -82,7 +90,17 @@ export default function Home() {
       })
       .then((data) => {
         console.log("Fetched Articles:", data);
-        setArticles(data);
+  
+        const updatedArticles = data.map((article: Article) => ({
+          ...article,
+          image:
+            typeof article.field_news_image === "string" &&
+            article.field_news_image.startsWith("/")
+              ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${article.field_news_image}`
+              : article.field_news_image || undefined, // ✅ No default image here
+        }));
+  
+        setArticles(updatedArticles);
       })
       .catch((err) => console.error("Error fetching news", err));
   }, []);
